@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:news_app/views/screens/bookmark_page.dart';
 import 'package:news_app/views/screens/home_page.dart';
+import 'package:news_app/views/screens/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,10 +20,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
   List<Widget> _buildScreens() {
     return [
       const HomePage(),
-      Container(),
-      Container(),
-      Container(),
-      Container(),
+      const BookmarkPage(),
+      const ProfilePage(),
     ];
   }
 
@@ -29,8 +29,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
     return [
       PersistentBottomNavBarItem(
         textStyle: const TextStyle(
-            fontFamily: 'Metropolis3',
-            fontWeight: FontWeight.w500,
+            fontFamily: 'Metropolis thin',
+            fontWeight: FontWeight.w800,
             fontSize: 12),
         icon: const FaIcon(FontAwesomeIcons.house),
         inactiveIcon: const FaIcon(FontAwesomeIcons.houseChimney),
@@ -38,40 +38,22 @@ class _BottomNavbarState extends State<BottomNavbar> {
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
+
       PersistentBottomNavBarItem(
         textStyle: const TextStyle(
-            fontFamily: 'Metropolis3',
-            fontWeight: FontWeight.w500,
+            fontFamily: 'Metropolis thin',
+            fontWeight: FontWeight.w800,
             fontSize: 12),
-        icon: const FaIcon(FontAwesomeIcons.cartShopping),
-        title: ("Shop"),
+        icon: const FaIcon(FontAwesomeIcons.solidBookmark),
+        title: ("Saved"),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
+
       PersistentBottomNavBarItem(
         textStyle: const TextStyle(
-            fontFamily: 'Metropolis3',
-            fontWeight: FontWeight.w500,
-            fontSize: 12),
-        icon: const FaIcon(FontAwesomeIcons.bagShopping),
-        title: ("Bag"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        textStyle: const TextStyle(
-            fontFamily: 'Metropolis3',
-            fontWeight: FontWeight.w500,
-            fontSize: 12),
-        icon: const FaIcon(FontAwesomeIcons.solidHeart),
-        title: ("Favorits"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        textStyle: const TextStyle(
-            fontFamily: 'Metropolis3',
-            fontWeight: FontWeight.w500,
+            fontFamily: 'Metropolis thin',
+            fontWeight: FontWeight.w800,
             fontSize: 12),
         icon: const FaIcon(FontAwesomeIcons.solidUser),
         title: ("Profile"),
