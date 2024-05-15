@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:news_app/utilities/images_slider.dart';
 import 'package:news_app/views/widgets/custom_app_bar.dart';
+import 'package:news_app/views/widgets/custom_carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,11 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
             child: Column(
               children: [
                 Row(
@@ -36,9 +38,21 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Breaking "),
+                    Text("Breaking News",style:
+                    Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontFamily: 'Metropolis extraBold'
+                    )
+                      ,),
+                    Text('View all',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
                   ],
                 ),
+                SizedBox(height: 16,),
+                CustomCarouselSlider(imgList: imgList),
               ],
             ),
           ),

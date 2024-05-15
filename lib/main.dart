@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/news_service.dart';
+import 'package:news_app/services/news_service.dart';
 import 'package:news_app/views/screens/bottom_navbar.dart';
 import 'package:news_app/views/screens/home_page.dart';
 import 'package:news_app/views/screens/splash1.dart';
