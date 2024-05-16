@@ -57,8 +57,9 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const BottomNavbar()
-      // splash1(),
+      home:
+      // const BottomNavbar()
+      const splash1(),
     );
   }
 }
