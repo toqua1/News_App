@@ -57,8 +57,14 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+<<<<<<< Updated upstream
       home: const BottomNavbar()
       // splash1(),
+=======
+      home:
+      const BottomNavbar()
+      // const splash1(),
+>>>>>>> Stashed changes
     );
   }
 }
