@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       ),
       home:
       // const BottomNavbar()
-     const splash1(),
+      const splash1(),
     );
   }
 }
