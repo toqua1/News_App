@@ -26,9 +26,10 @@ class MyApp extends StatelessWidget {
       title: 'News App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        scaffoldBackgroundColor:const Color(0xffe5e5e5),
-        primaryColor: const Color(0xffDB3022),
-        inputDecorationTheme: InputDecorationTheme(
+        // scaffoldBackgroundColor:const Color(0xffe5e5e5),
+        primaryColor: const Color(0xffff404c)
+        // Color(0xffDB3022),
+        ,inputDecorationTheme: InputDecorationTheme(
           labelStyle: Theme.of(context).textTheme.titleMedium,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
