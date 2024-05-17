@@ -23,7 +23,7 @@ final VoidCallback onTap ;
         style: const TextStyle(
           color: Colors.white ,
           fontSize: 18,
-          fontFamily: 'Metropolis',
+          fontFamily: 'Metropolis thin',
           fontWeight: FontWeight.w600,
           letterSpacing: 1
         ),

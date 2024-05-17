@@ -1,175 +1,202 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/views/screens/auth_page.dart';
+import 'package:news_app/views/widgets/main_button.dart';
 
 class onboarding extends StatefulWidget {
   const onboarding({super.key});
-State<onboarding> createState()=> _onboardingState();
+  State<onboarding> createState() => _onboardingState();
 }
-  @override
-  class _onboardingState extends State<onboarding>{
 
-    String img="assetsEdited/boarding0.png";
-    int index=0 ;
-    String txt1="Welcome !";
-    String txt2= "Make your profile page with your full information";
+@override
+class _onboardingState extends State<onboarding> {
+  String img = "assets_NewsApp/boarding2.jpg";
+  int index = 0;
+  String txt1 = "reliable sources";
+  String txt2 = "Get the latest news from";
 
-    void change(){
-      txt1=description1[index];
-      txt2=description2[index];
-      index++;
-      setState((){
-
-      });
-    }
+  void change() {
+    txt1 = description1[index];
+    txt2 = description2[index];
+    index++;
+    setState(() {});
+  }
 
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        // color: Color.fromRGBO(234,228,251,1),
-      ),
       child: Scaffold(
-        // backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios,
-                // color: Colors.black
-                 size: 20),
-            onPressed: (){
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body:Column(
+          body: Padding(
+        padding: const EdgeInsets.only(top: 50, left: 15,
+            right: 15, bottom: 25),
+        child: Column(
           children: [
-           const SizedBox(
-             height: 60,
-           ),
-            Center(
-              // child: CircleAvatar(
-              //   radius: 150,
-              child: Image.asset(img),
-              // ),
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            Column(
-              children: [
-                Text(txt1,
-                  style: const TextStyle(
-                   fontSize: 30,fontWeight:FontWeight.w900,
-                  ),
-                  ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(txt2,
-                        style: TextStyle(
-                          // color: Colors.grey ,
-                          fontSize: 20,fontWeight: FontWeight.w600 ,
-                          color: Theme.of(context).colorScheme.secondary
-                        ),
-                  textAlign: TextAlign.center,
-                  ),
-              ],
-            ),
-            const Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: 70),
+              padding: const EdgeInsets.only(left: 14.0 ,right: 20,bottom: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 130,
-                    height: 60,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          side: BorderSide(
-                              width: 1,
-                              color: Theme.of(context).colorScheme.primary
-                          ),
-                          // backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                 Image.asset('assets_NewsApp/logoLight.png',width: 150,),
+                  InkWell(
+                    child: const Text('Skip',style: TextStyle(
+                      fontFamily:'Metropolis thin',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800
+                    ),),
+                    onTap: (){
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context)=>const AuthPage())
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                          img,
+                          fit: BoxFit.cover,
                         ),
-                        child: const Text("SKIP"
-                          ,style: TextStyle(
-                            fontWeight: FontWeight.bold ,fontSize: 20 ,
-                            // color: Colors.black ,
-                          ),
+                      )),
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Color(0xff0c1a31).withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 8.0, right: 30, left: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          txt2,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Metropolis extraBold',
+                              letterSpacing: 2,
+                              fontSize: 40,
+                              fontWeight: FontWeight.w800),
                         ),
-                        onPressed: (){
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context)=>const AuthPage())
-                          );
-                        }
+                        Text(
+                          txt1,
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontFamily: 'Metropolis extraBold',
+                              letterSpacing: 2,
+                              fontSize: 40),
+                        )
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    width: 130,
-                    height: 60,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          side: const BorderSide(
-                              width: 1,
-                              style: BorderStyle.none,
-                              // color: Color.fromRGBO(0, 125, 254,1)
-                          ),
-                          // backgroundColor: Color.fromRGBO(0, 125, 254,1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: const Text("NEXT"
-                          ,style: TextStyle(
-                            fontWeight: FontWeight.bold ,fontSize: 20 ,
-                            // color: Colors.white ,
-                          ),
-                        ),
-                        onPressed: (){
-                          if(index==0){
+                  Positioned(
+                      bottom: 10,
+                      right: 70,
+                      left: 70,
+                      child: MainButton(
+                        text: 'Next',
+                        onTap: () {
+                          if (index == 0) {
                             change();
-                            // img="assetsEdited/boarding1.png" ;
-                          }
-                          else if(index==1){
+                            img = "assets_NewsApp/boarding2.jpg";
+                          } else if (index == 1) {
                             change();
-                            // img="assetsEdited/boarding3.png" ;
-                          }
-                          else if(index==2){
+                            img = "assets_NewsApp/img3.jpg";
+                          } else if (index == 2) {
                             change();
-                            // img="assetsEdited/boarding2.png" ;
+                            img = "assets_NewsApp/img9.jpg";
+                          } else if (index > 2) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const
+                                    AuthPage()
+                                 // login()
+                                ));
                           }
-                          else if(index>2) {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=>const AuthPage())
-                            );
-                          }
-                        }
-                    ),
-                  ),
+                        },
+                      )
+                      // SizedBox(
+                      //   width: 130,
+                      //   height: 60,
+                      //   child: ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         side: const BorderSide(
+                      //           width: 1,
+                      //           style: BorderStyle.none,
+                      //           // color: Color.fromRGBO(0, 125, 254,1)
+                      //         ),
+                      //         // backgroundColor: Color.fromRGBO(0, 125, 254,1),
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(20),
+                      //         ),
+                      //       ),
+                      //       child: const Text(
+                      //         "NEXT",
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.bold, fontSize: 20,
+                      //           // color: Colors.white ,
+                      //         ),
+                      //       ),
+                      //       onPressed: () {
+                      //         if (index == 0) {
+                      //           change();
+                      //           img = "assets_NewsApp/boarding2.jpg";
+                      //         } else if (index == 1) {
+                      //           change();
+                      //           img = "assets_NewsApp/img3.jpg";
+                      //         } else if (index == 2) {
+                      //           change();
+                      //           // img="assetsEdited/boarding2.png" ;
+                      //         } else if (index > 2) {
+                      //           Navigator.push(
+                      //               context,
+                      //               MaterialPageRoute(
+                      //                   builder: (context) => const AuthPage()));
+                      //         }
+                      //       }),
+                      // )
+                      ),
                 ],
               ),
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
-List description1=[
-  "Show Your Skills",
-  "Get to Know You",
-  "Let's Start !"
+// backgroundColor: Colors.transparent,
+// appBar: AppBar(
+//   elevation: 0,
+//   backgroundColor: Colors.transparent,
+//   leading: IconButton(
+//     icon: const Icon(Icons.arrow_back_ios,
+//         // color: Colors.black
+//         size: 20),
+//     onPressed: () {
+//       Navigator.pop(context);
+//     },
+//   ),
+// ),
+
+List<String> description1 = [
+  "reliable sources",
+  'all around the world',
+  "in NewsGlobe"
 ];
-List description2=[
-  "Mention your skills from technical to soft skills ,and show your proficiency ",
-  "Take a closer look at who you are and your journey. Learn about your background, experiences, and the unique qualities that make you a valuable asset to any team",
-  ""
+List<String> description2 = [
+  "Get the latest news from",
+  "Still up to date news from",
+  "From Art to politics, anything"
 ];

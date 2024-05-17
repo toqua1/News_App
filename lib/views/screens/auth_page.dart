@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import '../../utilities/snackBar.dart';
 import '../widgets/main_button.dart';
+import '../widgets/text_form_field.dart';
 import 'bottom_navbar.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -12,170 +16,251 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final _formKey =GlobalKey<FormState>();
-  final _emailController=TextEditingController();
-  final _passController=TextEditingController();
-  String _isLogin='login';
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+  String _isLogin = 'login';
+  bool showPassword = false;
+  String? email;
+  String? pass;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: 60 ,
-              horizontal: 32),
+    return ModalProgressHUD(
+      inAsyncCall: isLoading,
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 32),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Text( _isLogin =='login'? "Login" : "Sign up" ,
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    fontFamily: 'Metropolis2',
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 90),
+                    child: Text(
+                      _isLogin == 'login' ? "Login" : "Sign up",
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontFamily: 'Montserrat bold',
+                          ),
+                    ),
                   ),
                   const SizedBox(
                     height: 100,
                   ),
-                  TextFormField(
+                  CustomTextFormField(
                     controller: _emailController,
-                    validator: (val)=> /*anonymous function*/
-                      val!.isEmpty ? 'Please enter your email': null/*if not
-                       empty , don't do anything*/
-                    ,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                          fontFamily: 'Metropolis3',
-                          fontWeight: FontWeight.w500
-                      ),
-                      hintText: 'Enter your Email',
-                      hintStyle: TextStyle(
-                          fontFamily: 'Metropolis3',
-                          fontWeight: FontWeight.w500,
-                        color: Colors.grey
-                      ),
-                    ),
+                    label: 'Email',
+                    hint: 'Enter your Email',
+                    error: 'Please enter your email',
                   ),
                   const SizedBox(
                     height: 24,
                   ),
-                  TextFormField(
-                    controller: _passController,
-                    validator: (val) => /*anonymous function*/
-                      val!.isEmpty ? 'Please enter your password': null /*if
-                       not empty , don't do anything*/
-                    ,
-                    decoration: const InputDecoration(
-                        labelText: 'Password',
-                        labelStyle: TextStyle(
-                        fontFamily: 'Metropolis3',
-                        fontWeight: FontWeight.w500
-                    ),
-                        hintText: 'Enter your password',
-                      hintStyle: TextStyle(
-                          fontFamily: 'Metropolis3',
-                          fontWeight: FontWeight.w500,
-                        color: Colors.grey
-                      ),
+                  CustomTextFormField(
+                      controller: _passController,
+                      label: 'Password',
+                      hint: 'Enter your password',
+                      error: 'Please enter your password',
+                    showPassword: showPassword,
+                    suffixIcon: InkWell(
+                        onTap: (){
+                          if(showPassword==false){
+                            showPassword=true;
+                          }
+                          else{
+                            showPassword=false;
+                          }
+                          showPassword=showPassword;
+                          setState(() {
+
+                          });
+                        },
+                        child:showPassword? const Icon(Icons.visibility_off)
+                            :const Icon(Icons.visibility)
                     ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  if(_isLogin=='login')
+                  if (_isLogin == 'login')
                     InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text("forget your password?",style: TextStyle(
-                                fontFamily: 'Metropolis3',
-                                fontWeight: FontWeight.w500
-                            ),),
-                            Icon(
-                              Icons.arrow_right_alt_sharp ,
-                              color: Theme.of(context).primaryColor,
-                            )
-                          ],
-                        ),
-                        onTap: () {
-              
-                        },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "forget your password?",
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'Metropolis thin',
+                                fontWeight: FontWeight.w900),
+                          ),
+                          Icon(
+                            Icons.arrow_right_alt_sharp,
+                            color: Theme.of(context).primaryColor,
+                          )
+                        ],
                       ),
+                      onTap: () {},
+                    ),
                   const SizedBox(
-                    height:24 ,
+                    height: 24,
                   ),
                   MainButton(
-                      text: _isLogin=='login'? 'Login' :'Sign up',
-                      onTap: (){
-                        if(_formKey.currentState!.validate()){
-                          Navigator.push(context,
-                              MaterialPageRoute(
-                                  builder:(context) =>const BottomNavbar
-                                ()));
+                      text: _isLogin == 'login' ? 'Login' : 'Sign up',
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          isLoading = true;
+                          setState(() {});
+                          if (_isLogin == 'login') {
+                            try {
+                              final credential = await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: _emailController.text,
+                                      password: _passController.text);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BottomNavbar()));
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'user-not-found') {
+                                AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.error,
+                                    animType: AnimType.rightSlide,
+                                    title: 'Error',
+                                    desc: 'No user found for that email.',
+                                    btnCancelOnPress: () {},
+                                    btnOkOnPress: () {},
+                                    ).show();
+                              } else if (e.code == 'wrong-password') {
+                                AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Error',
+                                desc: 'Wrong password provided for that user.',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                                ).show();
+                              }
+                            }
+                          } else {
+                            try {
+                              final credential = await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _passController.text,
+                              );
+                              // if Sign up created successfully
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BottomNavbar()));
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'weak-password') {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Error',
+                                  desc: 'The password provided is too weak.',
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                              } else if (e.code == 'email-already-in-use') {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Error',
+                                  desc: 'The account already exists for that email.',
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                              }
+                            } catch (e) {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Error',
+                                desc: '${e}',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              ).show();
+                            }
+                          }
+                          isLoading = false;
+                          setState(() {});
                         }
-                      }
+                      }),
+                  const SizedBox(
+                    height: 16,
                   ),
-                  const SizedBox(height: 16,),
                   Align(
                     alignment: Alignment.center,
                     child: InkWell(
-                      onTap: (){
-                        setState(() {
-                          if(_isLogin=='login'){
-                            _isLogin='register';
-                          }else{
-                            _isLogin='login' ;
-                          }
-                        });
-                      },
-                      child:Text(_isLogin=='login'?
-                      'Don\'t have an account?Register'
-                      :'Have an account? Login' ,style: const TextStyle(
-                          fontFamily: 'Metropolis3',
-                          fontWeight: FontWeight.w500
-                        ),)
-                    ),
+                        onTap: () {
+                          setState(() {
+                            if (_isLogin == 'login') {
+                              _isLogin = 'register';
+                            } else {
+                              _isLogin = 'login';
+                            }
+                          });
+                        },
+                        child: Text(
+                          _isLogin == 'login'
+                              ? 'Don\'t have an account?Register'
+                              : 'Have an account? Login',
+                          style: const TextStyle(
+                              fontFamily: 'Metropolis thin',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900),
+                        )),
                   ),
                   // const Spacer(),
                   const SizedBox(
                     height: 80,
                   ),
-                   Align(
-                     alignment: Alignment.center,
-                     child: Text(
-                       _isLogin=='login'?'Or Login with'
-                       :'Or Register with',
-                      style:Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontFamily: 'Metropolis3',
-                        fontWeight: FontWeight.w500
-                      ) ,),
-                   ),
-                   const SizedBox(height: 16,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      _isLogin == 'login'
+                          ? 'Or Login with'
+                          : 'Or Register with',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontFamily: 'Metropolis thin',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         height: 64,
-                          width: 92,
+                        width: 92,
                         decoration: BoxDecoration(
-                           borderRadius: BorderRadius.circular(24),
-                          color: Colors.white ,
-                          boxShadow: const [
-                            BoxShadow(
-                             color: Colors.black26,
-                              offset: Offset(
-                                0.0,
-                                1.0,
-                              ),
-                                blurRadius: 8.0,
-                                spreadRadius: 0.0
-                            ),
-                          ]
-                        ),
-                        // child:Image.asset('assetsEcommerce/google.png') ,
+                            borderRadius: BorderRadius.circular(24),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(
+                                    0.0,
+                                    1.0,
+                                  ),
+                                  blurRadius: 8.0,
+                                  spreadRadius: 0.0),
+                            ]),
+                        child: Image.asset('assets_NewsApp/google.png'),
                       ),
                       const SizedBox(width: 16),
                       Container(
@@ -192,11 +277,9 @@ class _AuthPageState extends State<AuthPage> {
                                     1.0,
                                   ),
                                   blurRadius: 8.0,
-                                  spreadRadius: 0.0
-                              ),
-                            ]
-                        ),
-                        // child:Image.asset('assetsEcommerce/facebook.png') ,
+                                  spreadRadius: 0.0),
+                            ]),
+                        child: Image.asset('assets_NewsApp/facebook.png'),
                       ),
                     ],
                   ),
@@ -209,3 +292,22 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 }
+  // if (e.code == 'user-not-found') {
+//     print('No user found for that email.');
+//   } else if (e.code == 'wrong-password') {
+//     print('Wrong password provided for that user.');
+//   } else if (e.code == 'invalid-email') {
+//     print('The email address is badly formatted.');
+//   } else if (e.code == 'user-disabled') {
+//     print('The user account has been disabled.');
+//   } else if (e.code == 'too-many-requests') {
+//     print('Too many requests. Try again later.');
+//   } else if (e.code == 'operation-not-allowed') {
+//     print('Email/password sign-in is disabled.');
+//   } else {
+//     print('An unexpected error occurred.');
+//   }
+// } catch (e) {
+//   print('An error occurred: ${e.toString()}');
+// }
+
