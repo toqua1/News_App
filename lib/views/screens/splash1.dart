@@ -20,8 +20,8 @@ class _splash1State extends State<splash1> {
     Timer(const Duration(seconds: 6),
             ()=> Navigator.push(context,
             MaterialPageRoute(builder: (context)=>
-            // FirebaseAuth.instance.currentUser != null?
-            // const BottomNavbar():
+            FirebaseAuth.instance.currentUser != null?
+            const BottomNavbar():
             const onboarding())
         )
     );

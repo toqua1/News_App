@@ -150,7 +150,7 @@ class _AuthPageState extends State<AuthPage> {
                                   .signInWithEmailAndPassword(
                                       email: _emailController.text,
                                       password: _passController.text);
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => BottomNavbar()));
@@ -196,7 +196,7 @@ class _AuthPageState extends State<AuthPage> {
                                 password: _passController.text,
                               );
                               // if Sign up created successfully
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => BottomNavbar()));
