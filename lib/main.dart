@@ -12,7 +12,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  NewsService(Dio()).getNews();/*all is anonymous method*/
+  // NewsService(Dio()).getHeadlinesNews()
+  ;/*all is anonymous method*/
   runApp(const MyApp());
 }
 

@@ -3,13 +3,15 @@ import 'package:news_app/models/article_model.dart';
 
 class NewsService{
   Dio dio;
+  final String baseUrl ='https://newsapi.org/v2' ;
+  final String apiKey = '2331900ba9604bb79ac7c9943306ba6c' ;
 
-   NewsService(this.dio);
+  NewsService(this.dio);
 
-  Future<List<ArticleModel>> getNews() async {
+  Future<List<ArticleModel>> getHeadlinesNews(String category) async {
     try {
       Response response = await dio.get(
-          'https://newsapi.org/v2/top-headlines?country=us&apiKey=2331900ba9604bb79ac7c9943306ba6c&category=general');
+          '${baseUrl}/top-headlines?country=us&apiKey=${apiKey}&category=${category}');
 
       Map<String, dynamic> jsonData = response.data;
       /*return data either List<dynamic> or Map<String , dynamic>*/
