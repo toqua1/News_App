@@ -7,6 +7,7 @@ import '../widgets/text_form_field.dart';
 import 'bottom_navbar.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -24,6 +25,35 @@ class _AuthPageState extends State<AuthPage> {
   String? email;
   String? pass;
   bool isLoading = false;
+
+  Future signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    /*if we select sign with google and then cancel it , it will return null
+    value .So we did this check to not return exception*/
+    if(googleUser==null){
+      return;
+    }
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>const
+    BottomNavbar()));
+    // Navigator.pushAndRemoveUntil(context,
+    //   MaterialPageRoute(builder: (context) => BottomNavbar()),
+    //       (Route<dynamic> route) => false,
+    // );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +150,12 @@ class _AuthPageState extends State<AuthPage> {
                                   .signInWithEmailAndPassword(
                                       email: _emailController.text,
                                       password: _passController.text);
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => BottomNavbar()));
                             } on FirebaseAuthException catch (e) {
+                              print(e.code.toString());
                               if (e.code == 'user-not-found') {
                                 AwesomeDialog(
                                     context: context,
@@ -145,6 +176,16 @@ class _AuthPageState extends State<AuthPage> {
                                 btnCancelOnPress: () {},
                                 btnOkOnPress: () {},
                                 ).show();
+                              }else {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Error',
+                                  desc: '${e.code.toString()}',
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
                               }
                             }
                           } else {
@@ -155,7 +196,7 @@ class _AuthPageState extends State<AuthPage> {
                                 password: _passController.text,
                               );
                               // if Sign up created successfully
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => BottomNavbar()));
@@ -244,23 +285,28 @@ class _AuthPageState extends State<AuthPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 64,
-                        width: 92,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(
-                                    0.0,
-                                    1.0,
-                                  ),
-                                  blurRadius: 8.0,
-                                  spreadRadius: 0.0),
-                            ]),
-                        child: Image.asset('assets_NewsApp/google.png'),
+                      InkWell(
+                        child: Container(
+                          height: 64,
+                          width: 92,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.black26,
+                                    offset: Offset(
+                                      0.0,
+                                      1.0,
+                                    ),
+                                    blurRadius: 8.0,
+                                    spreadRadius: 0.0),
+                              ]),
+                          child: Image.asset('assets_NewsApp/google.png'),
+                        ),
+                        onTap: (){
+                          signInWithGoogle();
+                        },
                       ),
                       const SizedBox(width: 16),
                       Container(
@@ -292,22 +338,3 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 }
-  // if (e.code == 'user-not-found') {
-//     print('No user found for that email.');
-//   } else if (e.code == 'wrong-password') {
-//     print('Wrong password provided for that user.');
-//   } else if (e.code == 'invalid-email') {
-//     print('The email address is badly formatted.');
-//   } else if (e.code == 'user-disabled') {
-//     print('The user account has been disabled.');
-//   } else if (e.code == 'too-many-requests') {
-//     print('Too many requests. Try again later.');
-//   } else if (e.code == 'operation-not-allowed') {
-//     print('Email/password sign-in is disabled.');
-//   } else {
-//     print('An unexpected error occurred.');
-//   }
-// } catch (e) {
-//   print('An error occurred: ${e.toString()}');
-// }
-
