@@ -1,104 +1,94 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:news_app/views/screens/bookmark_page.dart';
 import 'package:news_app/views/screens/home_page.dart';
 import 'package:news_app/views/screens/profile_page.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
 
   @override
-  State<BottomNavbar> createState() => _BottomNavbarState();
+  _BottomNavbarState createState() => _BottomNavbarState();
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  final _bottomNavbarController = PersistentTabController();
-
-  List<Widget> _buildScreens() {
-    return [
-      const HomePage(),
-      const BookmarkPage(),
-      const ProfilePage(),
-    ];
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        textStyle: const TextStyle(
-            fontFamily: 'Metropolis thin',
-            fontWeight: FontWeight.w800,
-            fontSize: 12),
-        icon: const FaIcon(FontAwesomeIcons.house),
-        inactiveIcon: const FaIcon(FontAwesomeIcons.houseChimney),
-        title: ("Home"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-
-      PersistentBottomNavBarItem(
-        textStyle: const TextStyle(
-            fontFamily: 'Metropolis thin',
-            fontWeight: FontWeight.w800,
-            fontSize: 12),
-        icon: const FaIcon(FontAwesomeIcons.solidBookmark),
-        title: ("Saved"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-
-      PersistentBottomNavBarItem(
-        textStyle: const TextStyle(
-            fontFamily: 'Metropolis thin',
-            fontWeight: FontWeight.w800,
-            fontSize: 12),
-        icon: const FaIcon(FontAwesomeIcons.solidUser),
-        title: ("Profile"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-    ];
-  }
-
+  // int _page = 0;
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  PageController pageController=PageController() ;
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _bottomNavbarController,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      /*function that return list of persistent navbar
-       items*/
-      confineInSafeArea: true,
-      backgroundColor: Colors.white, // Default is Colors.white.
-      handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset:
-          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows:
-          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
+
+    return Scaffold(
+      body:PageView(
+        onPageChanged: (value){
+          setState(() {
+            // _page=value ;
+            _bottomNavigationKey.currentState?.setPage(value);
+          });
+        },
+        controller:pageController ,
+        children: const [
+          // _buildPage(_page),
+          HomePage(),
+          BookmarkPage(),
+          ProfilePage(),
+        ],
       ),
-      popAllScreensOnTapOfSelectedTab: true,
-      popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: const ItemAnimationProperties(
-        // Navigation Bar's items animation properties.
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
+      bottomNavigationBar: CurvedNavigationBar(
+        key: _bottomNavigationKey,
+        index: 0,
+        items: const [
+          CurvedNavigationBarItem(
+            child: Icon(FontAwesomeIcons.house),
+            label: 'Home',
+            labelStyle: TextStyle(
+                fontFamily: 'Metropolis thin',
+                fontWeight: FontWeight.w800,
+                fontSize: 12
+            )
+          ),
+          CurvedNavigationBarItem(
+            child: Icon(FontAwesomeIcons.solidBookmark),
+            label: 'Bookmark',
+            labelStyle: TextStyle(
+                fontFamily: 'Metropolis thin',
+                fontWeight: FontWeight.w800,
+                fontSize: 12
+            )
+          ),
+          CurvedNavigationBarItem(
+            child: Icon(FontAwesomeIcons.solidUser),
+            label: 'Profile',
+            labelStyle: TextStyle(
+                fontFamily: 'Metropolis thin',
+                fontWeight: FontWeight.w800,
+                fontSize: 12
+            )
+          ),
+        ],
+        color:
+        Theme.of(context).colorScheme.onPrimary ,/*for dark mode*/
+        // Colors.white,
+        buttonBackgroundColor: Colors.redAccent ,
+        backgroundColor: Colors.transparent,
+        animationCurve: Curves.easeInOut,
+        animationDuration: const Duration(milliseconds: 550),
+        onTap: (index) {
+          setState(() {
+            // _page = index;
+            // _buildPage(_page);
+            pageController.jumpToPage(index);
+          });
+        },
+        // letIndexChange: (index) => true,
       ),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
-        // Screen transition animation on change of selected tab.
-        animateTabTransition: true,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
-      ),
-      navBarStyle: NavBarStyle.style2, // Choose the nav bar style with this
-      // property.
     );
   }
+
 }
+
