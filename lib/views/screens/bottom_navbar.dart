@@ -8,6 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 
+import 'categories_Grid.dart';
+
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
 
@@ -31,10 +33,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
           });
         },
         controller:pageController ,
-        children: const [
+        children:  [
           // _buildPage(_page),
           HomePage(),
-          BookmarkPage(),
+          CategoriesGrid(),
           ProfilePage(),
         ],
       ),
@@ -52,8 +54,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
             )
           ),
           CurvedNavigationBarItem(
-            child: Icon(FontAwesomeIcons.solidBookmark),
-            label: 'Bookmark',
+            child: Icon(FontAwesomeIcons.gripVertical),
+            label: 'Categories',
             labelStyle: TextStyle(
                 fontFamily: 'Metropolis thin',
                 fontWeight: FontWeight.w800,
