@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-=======
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../utilities/profile_listOfMap.dart';
 import '../widgets/custom_ListTile.dart';
 import 'auth_page.dart';
->>>>>>> Stashed changes
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -16,11 +13,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool isDarkMode=false ;
+  bool getNotifications=false;
   @override
   Widget build(BuildContext context) {
-<<<<<<< Updated upstream
-    return const Placeholder();
-=======
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -81,6 +78,5 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
 
     );
->>>>>>> Stashed changes
   }
 }

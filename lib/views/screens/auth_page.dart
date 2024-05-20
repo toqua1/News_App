@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../utilities/snackBar.dart';
 import '../widgets/main_button.dart';
 import '../widgets/text_form_field.dart';
 import 'bottom_navbar.dart';
