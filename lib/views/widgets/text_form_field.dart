@@ -43,9 +43,6 @@ class CustomTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconColor: Colors.redAccent ,
       ),
-      // onChanged: (val){
-      //   data=val ;
-      // },
     );
   }
 }

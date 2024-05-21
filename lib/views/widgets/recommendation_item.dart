@@ -12,7 +12,6 @@ class RecommendationItem extends StatelessWidget{
     String formattedDate = DateFormat('kk:mm').format(DateTime
         .parse(newsItem.publishedAt!));
     return Container(
-      // margin: const EdgeInsets.only(bottom: 5),
       height: 160,
       child: Row(
           crossAxisAlignment:CrossAxisAlignment.center,
@@ -20,13 +19,9 @@ class RecommendationItem extends StatelessWidget{
             ClipRRect(
               borderRadius:BorderRadius.circular(15.0),
               child:
-              // Image.network(newsItem.imgUrl!,height:100,
-              //     width:155, fit:BoxFit.cover)),
               CachedNetworkImage(
               imageUrl: newsItem.imgUrl ?? '' ,height:150,width:125, fit:BoxFit
                   .cover
-                  // ?? '', // Pass an empty string if imgUrl is
-                // null
               ,placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => Image.asset

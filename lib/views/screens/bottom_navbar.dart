@@ -23,7 +23,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
   PageController pageController=PageController() ;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body:PageView(
         onPageChanged: (value){
@@ -35,9 +34,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
         controller:pageController ,
         children:  [
           // _buildPage(_page),
-          HomePage(),
+          const HomePage(),
           CategoriesGrid(),
-          ProfilePage(),
+          const ProfilePage(),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
@@ -72,9 +71,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             )
           ),
         ],
-        color:
-        Theme.of(context).colorScheme.onPrimary ,/*for dark mode*/
-        // Colors.white,
+        color:Theme.of(context).primaryColorDark,
         buttonBackgroundColor: Colors.redAccent ,
         backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,

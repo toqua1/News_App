@@ -22,7 +22,6 @@ class CategoriesGrid extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Scaffold(
-        // backgroundColor: const Color(0xffe5e5e5),
         appBar: AppBar(
           title: const Text('News Categories' ,style: TextStyle(
             fontFamily: 'Metropolis extraBold'

@@ -1,25 +1,3 @@
-// class NewsItem{
-//   final String? title;
-//   final String? content;
-//    String? imgUrl='assets_NewsApp/sports1.jpg';
-//   final String? category;
-//   final String? publishedAt;
-//   final String? author;
-//   final String? source;
-//   final String? desc ;/*if content is null , put it instead of content */
-//
-//   NewsItem({
-//     required this.source,
-//     required this.content,
-//     required this.title,
-//     required this.imgUrl,
-//     required this.category,
-//     required  this.author,
-//     required this.publishedAt,
-//     this.desc
-//   } );
-//
-// }
 class NewsItem {
   final String? sourceName;
   final String? author;
@@ -40,7 +18,7 @@ class NewsItem {
     this.publishedAt,
     this.content,
   });
-
+/*named constructor*/
   factory NewsItem.fromJson(Map<String, dynamic> json) {
     return NewsItem(
       sourceName: json['source']['name'],

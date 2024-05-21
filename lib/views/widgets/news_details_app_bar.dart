@@ -13,7 +13,9 @@ class NewsDetailsAppBar extends StatelessWidget {
     String formattedDate = DateFormat('kk:mm').format(DateTime
         .parse(newsItem.publishedAt!));
     return SliverAppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColorDark
+        // Colors.white
+        ,
         expandedHeight: size.height * 0.5,
         leading: Padding(
             padding: const EdgeInsets.only(left: 10),
@@ -29,11 +31,8 @@ class NewsDetailsAppBar extends StatelessWidget {
           background: Stack(children: [
             Positioned.fill(
                 child:
-                // Image.network(newsItem.imgUrl!, fit: BoxFit.cover)),
           CachedNetworkImage(
           imageUrl: newsItem.imgUrl ?? '' ,fit: BoxFit.cover
-            // ?? '', // Pass an empty string if imgUrl is
-            // null
             ,placeholder: (context, url) => const Center(
               child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => Image.asset('assets_NewsApp/boarding1.jpg',fit: BoxFit.cover),
@@ -97,15 +96,15 @@ class NewsDetailsAppBar extends StatelessWidget {
         ),
         pinned: true,
         collapsedHeight: size.height * 0.1,
-        bottom: const PreferredSize(
+        bottom: PreferredSize(
             preferredSize: Size.fromHeight(0),
             child: SizedBox(
               height: 30,
               width: double.infinity,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
+                  color:  Theme.of(context).primaryColorDark,
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(36.0),
                   ),
                 ),

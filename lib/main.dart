@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:news_app/services/news_service.dart';
 import 'package:news_app/views/screens/bottom_navbar.dart';
 import 'package:news_app/views/screens/home_page.dart';
+import 'package:news_app/views/screens/onboarding.dart';
 import 'package:news_app/views/screens/splash1.dart';
 import 'firebase/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform, /*class name*/
   );
-  // NewsService(Dio()).getHeadlinesNews()
-  ;/*all is anonymous method*/
+  /*all is anonymous method*/
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final ValueNotifier<ThemeMode> themeNotifier=ValueNotifier(ThemeMode.dark) ;
+  static final ValueNotifier<ThemeMode> themeNotifier=ValueNotifier(ThemeMode.light) ;
   const MyApp({super.key});
 
   @override
@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
             // scaffoldBackgroundColor:const Color(0xffe5e5e5),
-            primaryColor: const Color(0xffff404c)
+            primaryColor: const Color(0xffff404c),
+            primaryColorDark: Colors.white
             , inputDecorationTheme: InputDecorationTheme(
             labelStyle: Theme
                 .of(context)
@@ -68,7 +69,8 @@ class MyApp extends StatelessWidget {
          darkTheme: ThemeData.dark().copyWith(
            colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffff404c)),
            scaffoldBackgroundColor: Color(0xff102041),
-           primaryColor: const Color(0xffff404c)
+           primaryColor: const Color(0xffff404c) ,
+           primaryColorDark: const Color(0xff1b325b)
            , inputDecorationTheme: InputDecorationTheme(
            labelStyle: Theme
                .of(context)
@@ -99,9 +101,6 @@ class MyApp extends StatelessWidget {
                )
            ),
          ),
-           // navigationBarTheme:const NavigationBarThemeData(
-           //   backgroundColor: Color(0xff305599)
-           // )
            appBarTheme: const AppBarTheme(
              backgroundColor: Color(0xff102041),
              titleTextStyle: TextStyle(
@@ -116,10 +115,14 @@ class MyApp extends StatelessWidget {
            cardTheme: const CardTheme(
              color: Color(0xff1b325b),
              elevation: 30
+           ),
+           listTileTheme: ListTileThemeData(
+             textColor: Colors.white
            )
          ),
          themeMode: currentMode,
-          home: const splash1(),
+          home:const splash1(),
+         // onboarding()
         );
       }
     );

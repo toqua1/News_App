@@ -7,6 +7,7 @@ class CustomListTile extends StatelessWidget {
   final bool switchValue;
   final ValueChanged<bool>? onSwitchChanged;
   final VoidCallback? onTap;
+  // final Color? color;
 
   const CustomListTile({
     Key? key,
@@ -16,13 +17,19 @@ class CustomListTile extends StatelessWidget {
     this.switchValue = false,
     this.onSwitchChanged,
     this.onTap,
+    // required this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: Theme.of(context).primaryColor),
-      title: Text(title,style: TextStyle()
+      title: Text(title,style: const TextStyle(
+        fontSize: 16,
+        fontFamily: 'Metropolis thin',
+        fontWeight: FontWeight.w900
+        // color: color
+      )
         ,),
       trailing: hasSwitch
           ? Switch(

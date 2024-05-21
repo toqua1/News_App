@@ -20,7 +20,6 @@ class CategoryItem extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              // width: 220,height: 90,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(category.img),

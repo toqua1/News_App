@@ -10,7 +10,8 @@ class NewsDetailsPage extends StatelessWidget{
   Widget build(BuildContext context){
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColorDark,
+        // Colors.white,
         body:Stack(
             children:[
               Positioned.fill(
@@ -34,8 +35,10 @@ class NewsDetailsPage extends StatelessWidget{
                         begin: Alignment.bottomCenter,
                         end: Alignment.center,
                         colors: [
-                          Colors.white,
-                          Colors.white.withOpacity(0),
+                          Theme.of(context).primaryColorDark,
+                          Theme.of(context).primaryColorDark.withOpacity(0)
+                          // Colors.white,
+                          // Colors.white.withOpacity(0),
                         ],
                       ),
                     ),

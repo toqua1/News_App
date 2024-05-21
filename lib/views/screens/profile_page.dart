@@ -12,19 +12,14 @@ class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
-
+// String?imgLogo='assets_NewsApp/logoLight.png';
 class _ProfilePageState extends State<ProfilePage> {
+
   bool status =MyApp.themeNotifier.value==ThemeMode.dark?false :true ;
-  bool isDarkMode=false ;
-  Color? colorr ;
-  void changeTitle() {
+  // Color? colorr =Colors.brown;
+  void changeMode() {
     setState(() {
       status =MyApp.themeNotifier.value==ThemeMode.dark?false :true ;
-      if (status==false) {//dark
-        colorr=Colors.white  ;
-      } else {
-        colorr=Colors.black ;
-      }
     });
   }
 
@@ -41,21 +36,23 @@ class _ProfilePageState extends State<ProfilePage> {
           ),),
         ),
         body: ListView.builder(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0),
           itemCount: settings.length,
           itemBuilder: (context, index) {
             final item = settings[index];
 
             if (item.containsKey('divider') && item['divider']) {
-              return const Divider();
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Divider(),
+              );
             } else if (item.containsKey('header') && item['header']) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Text(
                   item['title'],
-                  style:  const TextStyle(
-                    // color:colorr ,
-                      fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               );
             }
@@ -64,13 +61,15 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: item['icon'],
               title: item['title'],
               hasSwitch: item['hasSwitch'],
-              switchValue:status,
+              switchValue: status?false:true,
               onSwitchChanged: (value) {
                 setState(() {
                   status = value;
-                  changeTitle() ;
                   MyApp.themeNotifier.value=
-                  MyApp.themeNotifier.value==ThemeMode.light?ThemeMode.dark :ThemeMode.light ;
+                  MyApp.themeNotifier.value==ThemeMode.light?ThemeMode.dark
+                      :ThemeMode.light ;
+                  changeMode() ;
+
                 });
               },
               onTap: () async{

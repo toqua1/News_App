@@ -40,14 +40,8 @@ import 'package:news_app/views/screens/news_details_page.dart';
 import '../../models/news_item.dart';
 
 class NewsCard extends StatelessWidget {
-  // final String title;
-  // final String desc;
-  // final String img;
   final NewsItem newsItem ;
   NewsCard({super.key,
-    // required this.title,
-    // required this.desc,
-    // required this.img,
    required this.newsItem});
 
   @override
@@ -75,8 +69,6 @@ class NewsCard extends StatelessWidget {
                   width: 90,
                   child:CachedNetworkImage(
                     imageUrl: newsItem.imgUrl ?? '' ,width:90, fit:BoxFit.cover
-                    // ?? '', // Pass an empty string if imgUrl is
-                    // null
                     ,placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) => Image.asset

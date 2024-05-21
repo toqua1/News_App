@@ -48,10 +48,6 @@ class _AuthPageState extends State<AuthPage> {
     await FirebaseAuth.instance.signInWithCredential(credential);
     Navigator.push(context, MaterialPageRoute(builder: (context)=>const
     BottomNavbar()));
-    // Navigator.pushAndRemoveUntil(context,
-    //   MaterialPageRoute(builder: (context) => BottomNavbar()),
-    //       (Route<dynamic> route) => false,
-    // );
   }
 
   @override
@@ -247,8 +243,12 @@ class _AuthPageState extends State<AuthPage> {
                           setState(() {
                             if (_isLogin == 'login') {
                               _isLogin = 'register';
+                              _emailController.clear();
+                              _passController.clear();
                             } else {
                               _isLogin = 'login';
+                              _emailController.clear();
+                              _passController.clear();
                             }
                           });
                         },
@@ -286,11 +286,13 @@ class _AuthPageState extends State<AuthPage> {
                     children: [
                       InkWell(
                         child: Container(
-                          height: 64,
-                          width: 92,
+                          height: 70,
+                          width: 100,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColorDark
+                              // Colors.white
+                              ,
                               boxShadow: const [
                                 BoxShadow(
                                     color: Colors.black26,
@@ -299,7 +301,7 @@ class _AuthPageState extends State<AuthPage> {
                                       1.0,
                                     ),
                                     blurRadius: 8.0,
-                                    spreadRadius: 0.0),
+                                    spreadRadius: 0),
                               ]),
                           child: Image.asset('assets_NewsApp/google.png'),
                         ),
@@ -309,11 +311,13 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                       const SizedBox(width: 16),
                       Container(
-                        height: 64,
-                        width: 92,
+                        height: 70,
+                        width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
-                            color: Colors.white,
+                            color:  Theme.of(context).primaryColorDark
+                            // Colors.white
+                            ,
                             boxShadow: const [
                               BoxShadow(
                                   color: Colors.black26,
