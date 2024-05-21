@@ -22,7 +22,8 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: Theme.of(context).primaryColor),
-      title: Text(title),
+      title: Text(title,style: TextStyle()
+        ,),
       trailing: hasSwitch
           ? Switch(
         value: switchValue,

@@ -7,8 +7,14 @@ class HomeTitleWidget extends StatelessWidget{
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
-          Text(title,style: Theme.of(context).textTheme.titleLarge),
-          TextButton(onPressed:(){},child:Text("View All")),
+          Text(title,style: Theme.of(context).textTheme.titleLarge!.copyWith(
+            fontFamily: 'Metropolis extraBold'
+          )),
+          TextButton(onPressed:(){},child:const Text("View All" ,style: TextStyle(
+            fontFamily: 'Metropolis thin',
+            fontWeight: FontWeight.bold ,
+            fontSize: 15
+          ),)),
         ]
     );
   }

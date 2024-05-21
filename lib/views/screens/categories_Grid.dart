@@ -19,26 +19,29 @@ class CategoriesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: const Color(0xffe5e5e5),
-      appBar: AppBar(
-        title: const Text('News Categories' ,style: TextStyle(
-          fontFamily: 'Metropolis extraBold'
-        ),),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 0),
-        child: GridView.builder(
-          itemCount: categories.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.85,
-            crossAxisSpacing: 20.0,
-            mainAxisSpacing: 10,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Scaffold(
+        // backgroundColor: const Color(0xffe5e5e5),
+        appBar: AppBar(
+          title: const Text('News Categories' ,style: TextStyle(
+            fontFamily: 'Metropolis extraBold'
+          ),),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+          child: GridView.builder(
+            itemCount: categories.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.85,
+              crossAxisSpacing: 20.0,
+              mainAxisSpacing: 10,
+            ),
+            itemBuilder: (context, index) {
+              return CategoryItem(category: categories[index]);
+            },
           ),
-          itemBuilder: (context, index) {
-            return CategoryItem(category: categories[index]);
-          },
         ),
       ),
     );

@@ -1,24 +1,56 @@
-class NewsItem{
-  final int id;
-  final String title;
-  final String imgUrl;
-  final String category;
-  final String time;
-  final String author;
+// class NewsItem{
+//   final String? title;
+//   final String? content;
+//    String? imgUrl='assets_NewsApp/sports1.jpg';
+//   final String? category;
+//   final String? publishedAt;
+//   final String? author;
+//   final String? source;
+//   final String? desc ;/*if content is null , put it instead of content */
+//
+//   NewsItem({
+//     required this.source,
+//     required this.content,
+//     required this.title,
+//     required this.imgUrl,
+//     required this.category,
+//     required  this.author,
+//     required this.publishedAt,
+//     this.desc
+//   } );
+//
+// }
+class NewsItem {
+  final String? sourceName;
+  final String? author;
+  final String? title;
+  final String? description;
+  final String? url;
+  final String? imgUrl;
+  final String? publishedAt;
+  final String? content;
 
   NewsItem({
-    required this.id,
-    required this.title,
-    required this.imgUrl,
-    required this.category,
-    required  this.author,
-    this.time="8 minutes ago",} );
+    this.sourceName,
+    this.author,
+    this.title,
+    this.description,
+    this.url,
+    this.imgUrl,
+    this.publishedAt,
+    this.content,
+  });
 
+  factory NewsItem.fromJson(Map<String, dynamic> json) {
+    return NewsItem(
+      sourceName: json['source']['name'],
+      author: json['author'],
+      title: json['title'],
+      description: json['description'],
+      url: json['url'],
+      imgUrl: json['urlToImage'],
+      publishedAt: json['publishedAt'],
+      content: json['content'],
+    );
+  }
 }
-List<NewsItem> news = [
-  NewsItem(id: 1, title: 'This is a freaking title here ', imgUrl: 'https://ichef.bbci.co.uk/images/ic/1024xn/p0hx91y8.jpg.webp', category: "Health", author: "CNN"),
-  NewsItem(id: 2, title: 'This is a amazing title here ', imgUrl:  'https://ichef.bbci.co.uk/images/ic/1024xn/p0hv9rm0.jpg.webp', category: "Art", author: "BBC"),
-  NewsItem(id: 3, title: 'This is a excellent title here ', imgUrl: 'https://ichef.bbci.co.uk/images/ic/1024xn/p0hqz8rz.jpg.webp', category: "Food", author: "National"),
-  NewsItem(id: 4, title: 'This is a very good title here ', imgUrl: 'https://ichef.bbci.co.uk/images/ic/1024x576/p0hxc2x0.jpg.webp' ,category: "Scientific", author: "CNN"),
-
-];

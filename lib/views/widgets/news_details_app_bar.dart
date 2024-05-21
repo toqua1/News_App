@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/news_item.dart';
 import 'app_bar_icon.dart';
 
@@ -8,11 +10,13 @@ class NewsDetailsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    String formattedDate = DateFormat('kk:mm').format(DateTime
+        .parse(newsItem.publishedAt!));
     return SliverAppBar(
         backgroundColor: Colors.white,
         expandedHeight: size.height * 0.5,
         leading: Padding(
-            padding: EdgeInsets.only(left: 1),
+            padding: const EdgeInsets.only(left: 10),
             child: InkWell(
               onTap: () {
                 Navigator.pop(context);
@@ -24,10 +28,20 @@ class NewsDetailsAppBar extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           background: Stack(children: [
             Positioned.fill(
-                child: Image.network(newsItem.imgUrl, fit: BoxFit.cover)),
-            Positioned(
+                child:
+                // Image.network(newsItem.imgUrl!, fit: BoxFit.cover)),
+          CachedNetworkImage(
+          imageUrl: newsItem.imgUrl ?? '' ,fit: BoxFit.cover
+            // ?? '', // Pass an empty string if imgUrl is
+            // null
+            ,placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Image.asset('assets_NewsApp/boarding1.jpg',fit: BoxFit.cover),
+          ),
+            ),
+          Positioned(
               bottom: 50,
-              left: 16,
+              left: 20,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -36,12 +50,15 @@ class NewsDetailsAppBar extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
-                          newsItem.category,
-                          style: const TextStyle(
+                          'General',
+                          style: TextStyle(
                             color: Colors.white,
+                              fontSize: 16 ,
+                              fontFamily: 'Metropolis thin',
+                              fontWeight: FontWeight.w900
                           ),
                         ),
                       ),
@@ -50,19 +67,24 @@ class NewsDetailsAppBar extends StatelessWidget {
                     SizedBox(
                       width: size.width * 0.9,
                       child: Text(
-                        newsItem.title,
+                        newsItem.title!,
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                  // fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                                fontFamily: 'Metropolis extraBold'
                                 ),
                         maxLines: 3,
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    Text('${newsItem.author}• ${newsItem.time} ',
+                    Text('${newsItem.sourceName} • $formattedDate ',
                         style: const TextStyle(
                           color: Colors.white,
+                            fontSize: 15 ,
+                            fontFamily: 'Metropolis thin',
+                            fontWeight: FontWeight.w900
                         )),
                     const SizedBox(height: 8.0)
                   ]),
