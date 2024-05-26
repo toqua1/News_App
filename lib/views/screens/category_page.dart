@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/views/widgets/build_shimmer_recommend.dart';
+import 'package:news_app/views/widgets/build_shimmer_slider.dart';
 import '../../models/news_item.dart';
 import '../../services/news_service.dart';
 import '../widgets/news_card.dart';
@@ -67,7 +69,13 @@ class _CategoryPageState extends State<CategoryPage> {
             ),),
           ),);
         }else{
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          return Scaffold(body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50 ,vertical:
+                130),
+                child: buildShimmerRecommed(),
+              )
+          ));
         }
       },
     );

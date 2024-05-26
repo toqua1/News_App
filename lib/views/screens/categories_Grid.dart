@@ -23,6 +23,8 @@ class CategoriesGrid extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Scaffold(
         appBar: AppBar(
+          leading: Container(),
+          centerTitle:true ,
           title: const Text('News Categories' ,style: TextStyle(
             fontFamily: 'Metropolis extraBold'
           ),),
