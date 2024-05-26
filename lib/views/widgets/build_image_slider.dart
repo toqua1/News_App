@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../models/news_item.dart';
 
 List<Widget> buildImageSliders(BuildContext context, List<NewsItem> news) {
@@ -15,8 +16,18 @@ List<Widget> buildImageSliders(BuildContext context, List<NewsItem> news) {
             imageUrl: item.imgUrl ?? '',
             fit: BoxFit.cover,
           width: 1000.0 ,
-            placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator()),
+            placeholder: (context, url) => Center(
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                )
+            ),
             errorWidget: (context, url, error) => Image.asset
               ('assets_NewsApp/boarding1.jpg',fit: BoxFit.cover,
               width: 1000.0 ,),

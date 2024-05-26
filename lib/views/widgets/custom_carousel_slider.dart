@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/news_item.dart';
 import 'package:news_app/views/widgets/build_image_slider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../services/news_service.dart';
+import 'build_shimmer_slider.dart';
 class CustomCarouselSlider extends StatefulWidget {
   const CustomCarouselSlider({super.key});
 
@@ -78,7 +80,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             ),
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return buildShimmerSlider();
         }
       },
     );
