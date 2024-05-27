@@ -33,8 +33,9 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
             // scaffoldBackgroundColor:const Color(0xffe5e5e5),
             primaryColor: const Color(0xffff404c),
-            primaryColorDark: Colors.white
-            , inputDecorationTheme: InputDecorationTheme(
+            primaryColorDark:Colors.grey.shade300,
+            // Colors.white
+            inputDecorationTheme: InputDecorationTheme(
             labelStyle: Theme
                 .of(context)
                 .textTheme
@@ -116,9 +117,9 @@ class MyApp extends StatelessWidget {
              color: Color(0xff1b325b),
              elevation: 30
            ),
-           listTileTheme: ListTileThemeData(
+           listTileTheme: const ListTileThemeData(
              textColor: Colors.white
-           )
+           ),
          ),
          themeMode: currentMode,
           home:const splash1(),

@@ -136,7 +136,7 @@ class _RecommendationItemState extends State<RecommendationItem> {
             ),),
           );
         }else{
-          return buildShimmerRecommed();
+          return buildShimmerRecommed(context);
         }
       }
     );

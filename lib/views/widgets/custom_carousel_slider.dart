@@ -80,7 +80,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             ),
           );
         } else {
-          return buildShimmerSlider();
+          return buildShimmerSlider(context);
         }
       },
     );

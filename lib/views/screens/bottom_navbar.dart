@@ -71,7 +71,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
             )
           ),
         ],
-        color:Theme.of(context).primaryColorDark,
+        color:Theme.of(context).primaryColorDark ==Colors.grey.shade300
+            ?Colors.white:Theme.of(context).primaryColorDark ,
         buttonBackgroundColor: Colors.redAccent ,
         backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,

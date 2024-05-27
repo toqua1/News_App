@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-Column buildShimmerSlider() {
+Column buildShimmerSlider(BuildContext context) {
   return Column(
     children: [
       Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
+        baseColor:Theme.of(context).primaryColorDark,
+        highlightColor:Theme.of(context).highlightColor,
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           height: 200.0, // Adjust the height as needed
