@@ -36,6 +36,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/views/screens/news_details_page.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../models/news_item.dart';
 
@@ -69,8 +70,18 @@ class NewsCard extends StatelessWidget {
                   width: 90,
                   child:CachedNetworkImage(
                     imageUrl: newsItem.imgUrl ?? '' ,width:90, fit:BoxFit.cover
-                    ,placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator()),
+                    ,placeholder: (context, url) => Center(
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      )
+                  ),
                     errorWidget: (context, url, error) => Image.asset
                       ('assets_NewsApp/boarding1.jpg',width:90, fit:BoxFit.cover),
                   ),

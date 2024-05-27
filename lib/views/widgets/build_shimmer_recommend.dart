@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-Column buildShimmerRecommed() {
+Column buildShimmerRecommed(BuildContext context) {
   return Column(
     children: List.generate(5, (index) {
       return Padding(
@@ -14,8 +14,8 @@ Column buildShimmerRecommed() {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.0),
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade100,
+                  baseColor:Theme.of(context).primaryColorDark,
+                  highlightColor:Theme.of(context).highlightColor,
                   child: Container(
                     height: 150,
                     width: 125,
@@ -29,8 +29,8 @@ Column buildShimmerRecommed() {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
+                      baseColor:Theme.of(context).primaryColorDark,
+                      highlightColor:Theme.of(context).highlightColor,
                       child: Container(
                         height: 20,
                         width: 100,
@@ -39,8 +39,8 @@ Column buildShimmerRecommed() {
                     ),
                     const SizedBox(height: 2.0),
                     Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
+                      baseColor:Theme.of(context).primaryColorDark,
+                      highlightColor:Theme.of(context).highlightColor,
                       child: Container(
                         height: 14,
                         width: double.infinity,
@@ -49,8 +49,8 @@ Column buildShimmerRecommed() {
                     ),
                     const SizedBox(height: 5.0),
                     Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
+                      baseColor:Theme.of(context).primaryColorDark,
+                      highlightColor:Theme.of(context).highlightColor,
                       child: Container(
                         height: 20,
                         width: 150,

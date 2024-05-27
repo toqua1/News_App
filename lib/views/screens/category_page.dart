@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/views/widgets/build_shimmer_news_card.dart';
 import 'package:news_app/views/widgets/build_shimmer_recommend.dart';
 import 'package:news_app/views/widgets/build_shimmer_slider.dart';
 import '../../models/news_item.dart';
@@ -69,13 +70,31 @@ class _CategoryPageState extends State<CategoryPage> {
             ),),
           ),);
         }else{
-          return Scaffold(body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50 ,vertical:
-                130),
-                child: buildShimmerRecommed(),
-              )
-          ));
+          return Scaffold(
+            appBar: AppBar(
+              title: Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child:
+                    Text(widget.categoryName, style: const TextStyle(
+                        fontFamily: 'Metropolis extraBold',
+                        fontSize: 25
+                    ),),
+              ),
+            ),
+            body:
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index)  {
+                  return buildShimmerNewsCard(context);
+                },
+              ),
+            ),
+            // SingleChildScrollView(
+            //     child: buildShimmerNewsCard()
+            // ),
+          );
         }
       },
     );

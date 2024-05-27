@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/views/screens/category_page.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../models/category_model.dart';
+import 'build_shimmer_category_Item.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel category;
@@ -49,29 +50,7 @@ class CategoryItem extends StatelessWidget {
             ),
           );
         }else{
-          return Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade100,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                Container(
-                  width: 80,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                )
-              ],
-            ),
-          );
+          return buildShimmerCategItem(context);
         }
       }
     );
