@@ -12,12 +12,6 @@ final List<Map<String, dynamic>> settings = [
     'hasSwitch': true,
     'switchValue': false
   },
-  // {
-  //   'icon': Icons.notifications,
-  //   'title': 'Get Notifications',
-  //   'hasSwitch': true,
-  //   'switchValue': false
-  // },
   {'icon': Icons.contact_mail, 'title': 'Contact Us', 'hasSwitch': false},
   {'icon': Icons.language, 'title': 'Language', 'hasSwitch': false},
   {'icon': Icons.rate_review, 'title': 'Rate this app', 'hasSwitch': false},

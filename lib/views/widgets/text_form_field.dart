@@ -39,7 +39,8 @@ class CustomTextFormField extends StatelessWidget {
         hintStyle: const TextStyle(
             fontFamily: 'Metropolis thin',
             fontWeight: FontWeight.w900,
-            color: Colors.grey),
+            // color: Colors.grey
+        ),
         suffixIcon: suffixIcon,
         suffixIconColor: Colors.redAccent ,
       ),

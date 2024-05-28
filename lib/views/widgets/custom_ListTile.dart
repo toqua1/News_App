@@ -24,11 +24,11 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: Theme.of(context).primaryColor),
-      title: Text(title,style: const TextStyle(
+      title: Text(title,style:TextStyle(
         fontSize: 16,
         fontFamily: 'Metropolis thin',
-        fontWeight: FontWeight.w900
-        // color: color
+        fontWeight: FontWeight.w900,
+        color: title =='Logout' ?Colors.red:null
       )
         ,),
       trailing: hasSwitch
